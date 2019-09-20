@@ -1,0 +1,61 @@
+<div fxLayout="column">
+  <mat-label>{{title}}</mat-label>
+  <div fxFlex = "10">
+    <mat-form-field fxLayout="column">
+      <input matInput
+             [value]="searchName"
+             placeholder="Search"
+            (input)="searchItems($event.target.value)"
+      />
+    </mat-form-field>
+  </div>
+  <div fxLayout="row"
+       fxFlex = "90"
+       fxLayoutAlign="space-between center">
+
+    <select
+      class="dual-multselect"
+      fxFlex="40"
+      name="itemsToSelect"
+      id="itemsToSelect"
+      multiple
+      (dblclick)="selectItem()"
+      [(ngModel)]="itemsToSelect">
+      <option *ngFor="let item of items" [value]="item">
+        {{ item?.name }}
+      </option>
+    </select>
+
+    <div
+      fxLayout="column"
+      fxFlex="18"
+      fxLayoutAlign="space-between center">
+      <button color="primary"
+              type="button"
+              mat-raised-button
+              [disabled]="itemsToSelect.length === 0"
+              (click)="selectItem()">
+        <mat-icon>arrow_right</mat-icon>
+      </button>
+      <button color="primary"
+              type="button"
+              mat-raised-button
+              [disabled]="itemsToRemove.length === 0"
+              (click)="removeItem()">
+        <mat-icon>arrow_left</mat-icon>
+      </button>
+    </div>
+
+    <select
+      class="dual-multselect"
+      fxFlex="40"
+      name="itemsToRemove"
+      (dblclick)="removeItem()"
+      [(ngModel)]="itemsToRemove"
+      multiple>
+      <option *ngFor="let item of selectedItems" [ngValue]="item">
+        {{ item?.name }}
+      </option>
+    </select>
+  </div>
+</div>
